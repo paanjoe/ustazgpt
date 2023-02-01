@@ -4,16 +4,16 @@ import MenuLogo from "../components/menulogo";
 
 const MenuBar: NextPage = () => {
   return (
-    <div>
+    <>
       <header aria-label="Site Header" className="bg-white dark:bg-gray-900">
-        <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <MenuLogo></MenuLogo>
-            <MenuList></MenuList>
-          </div>
+      <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
+        <div className="container flex flex-wrap items-center justify-between mx-auto">
+          <MenuLogo></MenuLogo>
+          <MenuList></MenuList>
         </div>
+      </nav>
       </header>
-    </div>
+    </>
   );
 };
 
