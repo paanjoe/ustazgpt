@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import { useState } from "react";
 import Disclaimer from "../components/disclaimer";
 import HeroTitle from "../components/herotitle";
 import Questions from "../components/questions";

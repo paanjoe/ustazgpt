@@ -8,7 +8,7 @@ const Footer: NextPage = () => {
   return (
     <div>
       <footer aria-label="Site Footer" className="bg-gray-100 dark:bg-gray-900">
-        <div className="relative mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="relative mx-auto px-4 py-10 sm:px-6 lg:px-8">
           <Copyright></Copyright>
         </div>
       </footer>
