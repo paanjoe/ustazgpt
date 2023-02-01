@@ -2,11 +2,19 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next-sitemap && yarn trim-sitemap",
+    "trim-sitemap": "sed 's,<urlset.*,<urlset xmlns=\"https://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">,g' public/sitemap.xml > public/sitemap.xml",
+    "start": "next start",
+    "analyze": "ANALYZE=true yarn build",
+    "lint:checksums": "ts-node scripts/lint-checksums.ts && git rm -r --cached -q public && git add --all public",
+    "lint": "prettier --write .",
+    "postinstall": "husky install",
+    "translations:update": "localazy upload && localazy download && yarn lint",
+    "test": "cypress run"
   },
   "dependencies": {
     "next": "latest",
+    "openai": "^3.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -15,7 +23,10 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.12",
+    "cypress": "^12.5.0",
+    "husky": "^8.0.3",
     "postcss": "^8.4.18",
+    "prettier": "2.8.3",
     "tailwindcss": "^3.2.4",
     "typescript": "4.9.4"
   }
