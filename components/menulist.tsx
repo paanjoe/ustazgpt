@@ -83,6 +83,15 @@ const MenuList: NextPage = () => {
             </a>
           </li>
           <li>
+            <a
+              href="#"
+              target={"_blank"}
+              className="block py-2 pl-3 pr-4 rounded bg-transparent  hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:delay-100  text-gray-900 dark:text-white"
+            >
+              License
+            </a>
+          </li>
+          <li>
             {colorTheme === "light" ? (
               <div className="text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:delay-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                 <svg

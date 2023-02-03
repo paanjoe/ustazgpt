@@ -11,7 +11,7 @@ const Contribute: NextPage = () => {
       >
         Sponsor
       </a>{" "}
-      in order to maintain this site. Gracias 🤩
+      in order to maintain this site (100% of the money will be used for this site). JazakAllahu Khayran 🙏.
     </div>
   );
 };

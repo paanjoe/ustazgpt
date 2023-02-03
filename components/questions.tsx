@@ -1,13 +1,17 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Contribute from "./contribute";
 import Loading from "./loading";
 
 const Questions: NextPage = () => {
   const [questionsInput, setQuestionsInput] = useState("");
   const [result, setResult] = useState();
+  const [isLoading, setLoading] = useState(false);
+  const [isDisabled, setDisabled] = useState(true);
 
+  // Send request
   async function onSubmit(event: any) {
+    fetching(true);
     event.preventDefault();
     try {
       const response = await fetch("/api/generate", {
@@ -19,21 +23,37 @@ const Questions: NextPage = () => {
       });
 
       const data = await response.json();
+
       if (response.status !== 200) {
+        fetching(false);
         throw (
           data.error ||
           new Error(`Request failed with status ${response.status}`)
         );
       }
 
+      if (response.status === 200 ){
+        fetching(false);
+      }
+
       setResult(data.result);
-      setQuestionsInput("");
     } catch (error: any) {
-      // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
     }
   }
+
+  // Set Loading
+  async function fetching(loadBoolean: boolean) {
+    try {
+        setLoading(loadBoolean);
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  // Set Button Disable
 
   return (
     <>
@@ -91,10 +111,15 @@ const Questions: NextPage = () => {
         </button>
       </form>
       <div>
-        {result !== undefined ? (
+      {isLoading === true ? (
+        <Loading></Loading>
+        ) : (
+        <></>
+        )
+      }
+        {result !== undefined && isLoading === false ? (
           <>
             {" "}
-            <Loading></Loading>
             <Contribute></Contribute>
             <h1 className="font-bold text-gray-900 dark:text-white text-3xl my-5">
               Answer:
@@ -111,9 +136,9 @@ const Questions: NextPage = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
               <span className="sr-only">Info</span>

@@ -20,7 +20,7 @@ const Home: NextPage = () => {
       />
       <MenuBar></MenuBar>
       <MainBody></MainBody>
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </div>
   );
 };
