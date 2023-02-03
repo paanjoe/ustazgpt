@@ -84,7 +84,7 @@ const MenuList: NextPage = () => {
           </li>
           <li>
             <a
-              href="#"
+              href="https://github.com/paanjoe/ustazgpt/blob/main/LICENSE"
               target={"_blank"}
               className="block py-2 pl-3 pr-4 rounded bg-transparent  hover:bg-gray-200 dark:hover:bg-gray-700 transition-all hover:delay-100  text-gray-900 dark:text-white"
             >

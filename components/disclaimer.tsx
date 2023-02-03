@@ -22,13 +22,17 @@ const Disclaimer: NextPage = () => {
         </svg>
         <span className="sr-only">Info</span>
         <div>
-          <span className="font-medium">Disclaimer:</span>
-          This AI chat is for informational purposes only and may not be 100%
+          <span className="font-bold">Disclaimer:</span>
+          UstazGPT is an AI chat that is for informational purposes only and may not be 100%
           accurate. The information provided may not be complete or up-to-date
           and should not be relied upon as professional advice. UstazGPT and its
           affiliates cannot guarantee accuracy and shall not be held responsible
           for errors or inaccuracies. Please seek professional advice before
           making any decisions.
+          <br/><br/>
+          <span className="font-semibold underline">If you think the answer is wrong, please help us by 'flagging' the answer in order
+          to help this AI learn to be more accurate!
+          </span>
         </div>
       </div>
     </div>

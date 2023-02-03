@@ -10,13 +10,13 @@ const HeroTitle: NextPage = () => {
       </h1>
       <p className="flex mx-auto sm:justify-center mt-4 sm:text-lg text-gray-900 dark:text-white  sm:leading-relaxed">
         Made with ❤️{" "}
-        {/* <a
+        <a
           href="https://www.linkedin.com/in/mohd-farhan-muhamad-fazli-693b7912b/"
           target={"_blank"}
           className="text-sky-400 underline hover:text-sky-200"
         >
           @FarhanFazli
-        </a> */}
+        </a>
       </p>
     </>
   );
