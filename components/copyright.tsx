@@ -8,7 +8,22 @@ const Copyright: NextPage = () => {
       <a href="/" className="text-cyan-400 underline hover:text-cyan-200">
         UstazGPT
       </a>{" "}
-      {year}. All rights reserved.
+      {year}. All rights reserved. Made with ❤️ &nbsp;
+      <a
+        href="https://www.linkedin.com/in/mohd-farhan-muhamad-fazli-693b7912b/"
+        target={"_blank"}
+        className="text-cyan-400 underline hover:text-cyan-200"
+      >
+        @FarhanFazli
+      </a>
+      &nbsp; & &nbsp;
+      <a
+        href="https://www.linkedin.com/in/shinjichew/"
+        target={"_blank"}
+        className="text-cyan-400 underline hover:text-cyan-200"
+      >
+        @ShinjiChew
+      </a>
     </p>
   );
 };

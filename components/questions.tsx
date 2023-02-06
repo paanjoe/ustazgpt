@@ -2,19 +2,58 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Contribute from "./contribute";
 import Loading from "./loading";
+import Login from "./login";
+import { useSession } from "next-auth/react";
 
 const Questions: NextPage = () => {
-  const [questionsInput, setQuestionsInput] = useState('');
-  const [email, setEmail] = useState('');
+  const [questionsInput, setQuestionsInput] = useState("");
   const [result, setResult] = useState();
   const [isLoading, setLoading] = useState(false);
+  const { data: session } = useSession();
 
+  // Store login infos
+  const userModel = session?.user;
+  const storeLogin = async () => {
+    try {
+        const res = await fetch(
+            `/api/store`,
+            {
+                method: 'POST',
+                body: JSON.stringify({userModel}),
+                headers: { 'Content-Type': 'application/json'}
+            }
+        );
+    } catch (err) {
+        console.log(err);
+    }
+  };
 
+  // Flag response
+  const ansModel = {
+    questions: questionsInput,
+    answer: result,
+    email: session?.user?.email
+  }
+
+  const flagAnswer = async () => {
+    try {
+      const res = await fetch(`/api/flag`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ansModel}),
+        headers: { 'Content-Type': 'application/json'}
+      });
+    } catch(err) {
+      console.log(err);
+    }
+  }
+  
   // Send request
   async function onSubmit(event: any) {
     fetching(true);
     event.preventDefault();
     try {
+      storeLogin();
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
@@ -33,7 +72,7 @@ const Questions: NextPage = () => {
         );
       }
 
-      if (response.status === 200 ){
+      if (response.status === 200) {
         fetching(false);
       }
 
@@ -47,7 +86,7 @@ const Questions: NextPage = () => {
   // Set Loading
   async function fetching(loadBoolean: boolean) {
     try {
-        setLoading(loadBoolean);
+      setLoading(loadBoolean);
     } catch (error: any) {
       console.error(error);
       alert(error.message);
@@ -55,9 +94,9 @@ const Questions: NextPage = () => {
   }
 
   function test() {
-    if (email.length > 0 && questionsInput.length > 0) {
+    if (session !== null && questionsInput.length > 0) {
       return false;
-    } else if (email.length === 0 && questionsInput.length === 0) {
+    } else if (session === null && questionsInput.length === 0) {
       return true;
     } else {
       return true;
@@ -66,8 +105,9 @@ const Questions: NextPage = () => {
 
   return (
     <>
+    <Login></Login>
       <form onSubmit={onSubmit}>
-        <div className="my-4 max-h-screen">
+        <div className="mb-4 max-h-screen">
           <label
             htmlFor="message"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -83,51 +123,17 @@ const Questions: NextPage = () => {
             onChange={(e) => setQuestionsInput(e.target.value)}
           ></textarea>
         </div>
-
-        <div className="mt-4">
-          <label
-            htmlFor="input-group-1"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            <span className="text-xl">📧 </span>Email Address
-          </label>
-          <div className="relative mb-6">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="input-group-1"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="example@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <button disabled={test()} className="disabled relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+        <button
+          disabled={test()}
+          className="disabled relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+        >
           <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
             Ask Questions <span className="text-md">⚡</span>
           </span>
         </button>
       </form>
       <div>
-      {isLoading === true ? (
-        <Loading></Loading>
-        ) : (
-        <></>
-        )
-      }
+        {isLoading === true ? <Loading></Loading> : <></>}
         {result !== undefined && isLoading === false ? (
           <>
             {" "}
@@ -155,6 +161,9 @@ const Questions: NextPage = () => {
               <span className="sr-only">Info</span>
               <div>{result}</div>
             </div>
+            <button onClick={() => flagAnswer()} type="button" className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+            🏳️ Flag This Answer
+            </button>
           </>
         ) : (
           <></>
