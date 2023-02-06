@@ -2,6 +2,14 @@
 /** @type {import('next-sitemap').IConfig} */
 
 module.exports = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://ustazgpt.paanjoe.com/api/:path*',
+      },
+    ]
+  }, 
   reactStrictMode: false,
   env: {
     GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
