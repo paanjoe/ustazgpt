@@ -1,5 +1,7 @@
 # UstazGPT
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/863efa2f-c33f-4757-a106-0bada798834e/deploy-status)](https://app.netlify.com/sites/velvety-sprinkles-5f0fcf/deploys)
+
 Welcome to the "UstazGPT" repository! This AI Chat app is designed to provide a platform to ask questions and learn about Islamic beliefs, practices and culture. It uses OpenAI to provide users with an interactive conversation experience. 
 
 The app includes a variety of topics, from basic Islamic teachings to more complex topics. 
