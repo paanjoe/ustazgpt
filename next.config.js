@@ -6,6 +6,7 @@ module.exports = {
   env: {
     GOOGLE_ANALYTICS: process.env.GOOGLE_ANALYTICS,
     siteUrl: process.env.SITE_URL,
-    generateRobotsTxt: true
+    generateRobotsTxt: true,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL
   }
 };
