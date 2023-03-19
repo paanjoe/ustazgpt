@@ -10,6 +10,8 @@ const Questions: NextPage = () => {
   const [result, setResult] = useState();
   const [isLoading, setLoading] = useState(false);
   const { data: session } = useSession();
+  const [isFlagged, setFlagged] = useState(false);
+  let t: String = '';
 
   // Store login infos
   const userModel = session?.user;
@@ -42,6 +44,8 @@ const Questions: NextPage = () => {
         method: 'POST',
         body: JSON.stringify({ansModel}),
         headers: { 'Content-Type': 'application/json'}
+      }).then(() => {
+        setFlagged(true);
       });
     } catch(err) {
       console.log(err);
@@ -95,10 +99,13 @@ const Questions: NextPage = () => {
 
   function test() {
     if (session !== null && questionsInput.length > 0) {
+      t = '';
       return false;
     } else if (session === null && questionsInput.length === 0) {
+      t = 'cursor-not-allowed';
       return true;
     } else {
+      t = 'cursor-not-allowed';
       return true;
     }
   }
@@ -127,7 +134,7 @@ const Questions: NextPage = () => {
           disabled={test()}
           className="disabled relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
         >
-          <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+          <span className={`${t} relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0`}>
             Ask Questions <span className="text-md">⚡</span>
           </span>
         </button>
@@ -165,6 +172,13 @@ const Questions: NextPage = () => {
             🏳️ Flag This Answer
             </button>
           </>
+        ) : (
+          <></>
+        )}
+        { isFlagged === true ? (
+        <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <span className="font-medium">Answer Flagged!</span> We have successfully flagged your answer! Thank you for your contribution. 
+      </div>
         ) : (
           <></>
         )}

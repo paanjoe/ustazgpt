@@ -14,13 +14,13 @@ export default function Login() {
             src={session.user?.image!}
             alt=""
           />
-          <div className="font-medium dark:text-white">
+          <div className="font-medium text-gray-900 dark:text-white">
             <div>{session.user?.name}</div>
             <div className="text-sm text-gray-500 dark:text-gray-400">
               {session.user?.email}
             </div>
             <button
-              className="underline hover:text-slate-300"
+              className="underline text-gray-900 dark:text-white hover:text-slate-300"
               onClick={() => signOut()}
             >
               Sign Out
