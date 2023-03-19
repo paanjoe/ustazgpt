@@ -8,6 +8,12 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function (req: any, res: any) {
+  const { context } = req.netlifyFunctionParams || {};
+  if (context) {
+    console.log("Setting callbackWaitsForEmptyEventLoop: false");
+    context.callbackWaitsForEmptyEventLoop = false;
+  }
+
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -33,7 +39,7 @@ export default async function (req: any, res: any) {
       model: "text-davinci-003",
       prompt: generatePrompt(questions),
       temperature: 0.3,
-      max_tokens: 2048,
+      max_tokens: 2048
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch (error: any) {

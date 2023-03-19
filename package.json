@@ -16,6 +16,7 @@
     "@anatoliygatt/dark-mode-toggle": "^1.0.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@netlify/plugin-nextjs": "^4.32.2",
     "flowbite": "^1.6.3",
     "next": "latest",
     "next-auth": "^4.19.2",
